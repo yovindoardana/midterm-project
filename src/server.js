@@ -1,11 +1,11 @@
-import express from 'express';
 import 'dotenv/config';
-import connection from './config/connection.js';
+import express from 'express';
+import connectToDatabase from './config/connection.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-connection();
+connectToDatabase();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

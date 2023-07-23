@@ -1,7 +1,6 @@
 import {connect} from 'mongoose';
-import 'dotenv/config';
 
-const connection = async () => {
+const connectToDatabase = async () => {
   try {
     await connect(process.env.DATABASE_URL, {
       useNewUrlParser: true,
@@ -14,4 +13,4 @@ const connection = async () => {
   }
 };
 
-export default connection;
+export default connectToDatabase;
