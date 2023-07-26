@@ -27,6 +27,21 @@ const getProductbyVideoId = async (req, res) => {
   }
 };
 
+const searchProduct = async (req, res) => {
+  const {query} = req.params;
+  try {
+    const products = await Product.find({title: {$regex: query, $options: 'i'}});
+
+    if (products.length === 0) {
+      return res.status(404).json({message: 'No products found.'});
+    }
+
+    res.status(200).json({status: 'success', data: products});
+  } catch (err) {
+    res.status(404).json({status: 'error', message: err.message});
+  }
+};
+
 const addProduct = async (req, res) => {
   const product = new Product(req.body);
   try {
@@ -61,6 +76,7 @@ export default {
   getProducts,
   getProductbyId,
   addProduct,
+  searchProduct,
   updateProduct,
   deleteProduct,
   getProductbyVideoId

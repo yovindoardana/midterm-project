@@ -1,4 +1,5 @@
 import Video from '../models/VideoModel.js';
+import Product from '../models/ProductModel.js';
 
 const getVideos = async (req, res) => {
   try {
@@ -41,7 +42,13 @@ const updateVideo = async (req, res) => {
 
 const deleteVideo = async (req, res) => {
   try {
-    await Video.findByIdAndDelete(req.params.id);
+    const video = await Video.findById(req.params.id);
+    const isVideoHasProduct = await Product.find({videoId: req.params.id});
+
+    if (isVideoHasProduct.length > 0) {
+      return res.status(400).json({status: 'error', message: 'Video has product!'});
+    }
+
     res.status(200).json({status: 'success', message: 'Video deleted'});
   } catch (err) {
     res.status(404).json({status: 'error', message: 'Video Not Found'});

@@ -17,14 +17,6 @@ const VideoSchema = new Schema(
     thumbnailUrl: {
       type: String,
       required: true
-    },
-    totalLikes: {
-      type: Number,
-      required: false
-    },
-    totalComments: {
-      type: Number,
-      required: false
     }
   },
   {versionKey: false}
