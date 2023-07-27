@@ -2,6 +2,108 @@
 
 Backend-only web app utilizing Express.js, Mongoose, and MongoDB.
 
+## Installation
+
+#### 1. Clone my repository
+
+```bash
+  git clone <repository_url>
+  cd <project_directory>
+```
+
+#### 2. Install dependencies using package manager
+
+```bash
+  npm install
+```
+
+#### 3. Run the server
+
+```bash
+  npm start
+```
+
+> Don't forget to set-up your `.env` file, I have already put `.env.example` for you to use.
+
+## Database Structure
+
+Database consists of four main schemas: `Video`, `User`, `Product`, and `Comment`. Each schema represents a specific entity in the application and defines its fields.
+
+##### 1. **User Schema**:
+
+- This schema represents a user of the application.
+- Fields:
+  - `username` (String, required): The unique username of the user. It serves as a handle or identifier for the user.
+  - `fullname` (String, required): The full name of the user. It stores the user's complete name for identification purposes.
+  - `email` (String, required): The email address of the user. It provides a means of communication and login credential.
+  - `password` (String, required): The password of the user. It is encrypted for security and used for user authentication.
+  - `profilePicture` (String, optional): The URL of the user's profile picture. It holds the location of the user's chosen profile image.
+
+##### 2. **Video Schema**:
+
+- This schema represents a video in the application.
+- Fields:
+  - `title` (String, required): The title of the video. It provides a concise name for the video content.
+  - `description` (String, required): A description of the video. It offers additional context or information about the video's content.
+  - `videoUrl` (String, required): The URL of the video. It specifies the location where the video can be accessed or played.
+  - `thumbnailUrl` (String, required): The URL of the video's thumbnail image. Thumbnails are small preview images used to represent the video visually.
+
+##### 3. **Product Schema**:
+
+- This schema represents a product associated with a video.
+- Fields:
+  - `videoId` (String, required): The ID of the video to which the product is linked. It establishes a relationship between the product and its associated video.
+  - `title` (String, required): The title of the product. It provides a name or label for the product.
+  - `price` (Number, required): The price of the product. It specifies the cost or value of the product.
+  - `linkProduct` (String, required): The URL link to the product. It points to the external location where users can purchase or access the product.
+
+##### 4. **Comment Schema**:
+
+- This schema represents a comment made by a user on a specific video.
+- Fields:
+  - `userId` (String, required): The ID of the user who posted the comment. It links the comment to the user who authored it.
+  - `videoId` (String, required): The ID of the video on which the comment is made. It associates the comment with the specific video it refers to.
+  - `comment` (String, required): The actual comment text. It contains the user's input or thoughts about the video.
+  - `timestamps` (Automatically generated, optional): Represents the creation and update timestamps for the comment. It records when the comment was created and, if applicable, updated.
+
+By defining these schemas, the application can create, retrieve, update, and delete records in the MongoDB database using the Mongoose library. This structure allows for managing video content, user data, associated products, and user comments efficiently in the application.
+
+## API Structure
+
+| Endpoint                | HTTP Method | Description                                         |
+| ----------------------- | ----------- | --------------------------------------------------- |
+|                         |             |                                                     |
+| **Users**               |             |                                                     |
+|                         |             |                                                     |
+| /users                  | GET         | Retrieve a list of all users.                       |
+| /users/:id              | GET         | Retrieve a specific user by their ID.               |
+| /users                  | POST        | Create a new user.                                  |
+| /users/:id              | PUT         | Update an existing user by their ID.                |
+| /users/:id              | DELETE      | Delete a user by their ID.                          |
+|                         |             |                                                     |
+| **Videos**              |             |                                                     |
+|                         |             |                                                     |
+| /videos                 | GET         | Retrieve a list of all videos.                      |
+| /videos/:id             | GET         | Retrieve a specific video by its ID.                |
+| /videos                 | POST        | Create a new video.                                 |
+| /videos/:id             | PUT         | Update an existing video by its ID.                 |
+| /videos/:id             | DELETE      | Delete a video by its ID.                           |
+|                         |             |                                                     |
+| **Products**            |             |                                                     |
+|                         |             |                                                     |
+| /products               | GET         | Retrieve a list of all products.                    |
+| /products/product:id    | GET         | Retrieve a specific product by its ID.              |
+| /products               | POST        | Create a new product.                               |
+| /products/:id           | PUT         | Update an existing product by its ID.               |
+| /products/:id           | DELETE      | Delete a product by its ID.                         |
+| /products/video:videoId | GET         | Retrieve products associated with a specific video. |
+| /products/search/:query | GET         | Search products based on a query.                   |
+|                         |             |                                                     |
+| **Comments**            |             |                                                     |
+|                         |             |                                                     |
+| /comments/:videoId      | GET         | Retrieve comments associated with a specific video. |
+| /comments               | POST        | Add a new comment to a video.                       |
+
 ## API Reference
 
 ### Users
@@ -571,6 +673,38 @@ DELETE /products/${id}
 {
     "status": "error",
     "message": "Product Not Found"
+}
+```
+
+#### Search Product
+
+##### Request
+
+```http
+GET /products/search/${product.title}
+```
+
+| URL Params | Type     | Description   |
+| :--------- | :------- | :------------ |
+| `string`   | `string` | **Required**. |
+
+##### Response
+
+###### 200 OK
+
+```
+{
+    "status": "success",
+    "data": {<product_object>}
+}
+```
+
+###### 404 Not Found
+
+```
+{
+    "status": "success",
+    "message": "No products found."
 }
 ```
 

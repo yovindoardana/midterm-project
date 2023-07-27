@@ -38,7 +38,7 @@ const searchProduct = async (req, res) => {
     const products = await Product.find({title: {$regex: query, $options: 'i'}});
 
     if (products.length === 0) {
-      return res.status(404).json({message: 'No products found.'});
+      return res.status(404).json({status: 'success', message: 'No products found.'});
     }
 
     res.status(200).json({status: 'success', data: products});
