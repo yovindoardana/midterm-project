@@ -44,7 +44,7 @@ GET /users
 ##### Request
 
 ```http
-  GET /users/${id}
+GET /users/${id}
 ```
 
 | URL Params | Type     | Description   |
@@ -78,7 +78,7 @@ GET /users
 ##### Request
 
 ```http
-  POST /users/
+POST /users/
 ```
 
 | Data Params      | Type     | Description   |
@@ -114,7 +114,7 @@ GET /users
 ##### Request
 
 ```http
-  PUT /users/${id}
+PUT /users/${id}
 ```
 
 | URL Params | Type     | Description   |
@@ -154,7 +154,7 @@ GET /users
 ##### Request
 
 ```http
-  DELETE /users/${id}
+DELETE /users/${id}
 ```
 
 | URL Params | Type     | Description   |
@@ -253,7 +253,7 @@ GET /videos/${id}
 ##### Request
 
 ```http
-  POST /videos/
+POST /videos/
 ```
 
 | Data Params    | Type     | Description   |
@@ -473,7 +473,7 @@ GET /products/video${videoId}
 ##### Request
 
 ```http
-  POST /products
+POST /products
 ```
 
 | Data Params   | Type     | Description   |
@@ -593,7 +593,7 @@ DELETE /products/${id}
 ##### Request
 
 ```http
-  POST /comments
+POST /comments
 ```
 
 | Data Params | Type     | Description   |
