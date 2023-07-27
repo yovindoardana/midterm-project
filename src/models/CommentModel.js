@@ -15,8 +15,6 @@ const CommentSchema = new Schema(
       required: true
     }
   },
-  {timestamps: true},
-  {versionKey: false}
+  {versionKey: false, timestamps: true}
 );
-
 export default model('Comment', CommentSchema);

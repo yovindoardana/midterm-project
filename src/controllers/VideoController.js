@@ -15,7 +15,7 @@ const getVideoById = async (req, res) => {
     const video = await Video.findById(req.params.id);
     res.status(200).json({status: 'success', data: video});
   } catch (err) {
-    res.status(404).json({status: 'error', message: err.message});
+    res.status(404).json({status: 'error', message: `Video Not Found`});
   }
 };
 
@@ -36,7 +36,7 @@ const updateVideo = async (req, res) => {
     });
     res.status(200).json({status: 'success', data: updatedVideo});
   } catch (err) {
-    res.status(404).json({status: 'error', message: err.message});
+    res.status(404).json({status: 'error', message: `Video Not Found`});
   }
 };
 
@@ -49,7 +49,8 @@ const deleteVideo = async (req, res) => {
       return res.status(400).json({status: 'error', message: 'Video has product!'});
     }
 
-    res.status(200).json({status: 'success', message: 'Video deleted'});
+    await video.deleteOne();
+    res.status(200).json({status: 'success', message: `Video ${video.title} Deleted Successfully!`});
   } catch (err) {
     res.status(404).json({status: 'error', message: 'Video Not Found'});
   }
