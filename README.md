@@ -185,7 +185,7 @@ DELETE /users/${id}
 
 #### Video Object
 
-```json
+```
 {
     title: string,
     description: string,
